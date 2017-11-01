@@ -34,9 +34,36 @@ func handler(data: [String:Any]) throws -> RequestHandler {
 	}
 }
 
-// Configuration data for an example server.
-// This example configuration shows how to launch a server
-// using a configuration dictionary.
+// dataStore is our "Data Storage" construct as we are not using a database for this example
+var dataStore:[String: Any] = [
+	"1": [
+		"id": 1,
+		"firstname": "Joe",
+		"lastname": "Brown",
+		"address": [
+			"address1": "1 Infinite Loop",
+			"address2": "",
+			"city": "Cupertino",
+			"state": "California"
+		],
+		"phone": "555-123-4567",
+		"age": 23
+	],
+	"2": [
+		"id": 2,
+		"firstname": "Jane",
+		"lastname": "Smith",
+		"address": [
+			"address1": "1601 14th Street West ",
+			"address2": "",
+			"city": "New York",
+			"state": "New York"
+		],
+		"phone": "555-333-4455",
+		"age": 29
+	],
+]
+
 
 
 let confData = [
@@ -51,6 +78,13 @@ let confData = [
 			"port":8181,
 			"routes":[
 				["method":"get", "uri":"/", "handler":handler],
+				// People Handlers
+				["method":"get", "uri":"/api/v1/people", "handler":PeopleHandlers.list], // List
+				["method":"get", "uri":"/api/v1/people/{id}", "handler":PeopleHandlers.read], // Read
+				["method":"post", "uri":"/api/v1/people", "handler":PeopleHandlers.create], // Create
+				["method":"patch", "uri":"/api/v1/people/{id}", "handler":PeopleHandlers.update], // Update
+				["method":"delete", "uri":"/api/v1/people/{id}", "handler":PeopleHandlers.delete], // Delete
+
 				["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
 				 "documentRoot":"./webroot",
 				 "allowResponseFilters":true]
