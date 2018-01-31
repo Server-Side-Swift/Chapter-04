@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
 	name: "json",
 	dependencies: [
-		.package(url: "https://github.com/PerfectlySoft/PerfectLib.git", "3.0.0"..<"4.0.0")
+		.package(url: "https://github.com/PerfectlySoft/Perfect.git", "3.0.0"..<"4.0.0")
 	],
 	targets: [
 		.target(name: "json", dependencies: ["PerfectLib"])
